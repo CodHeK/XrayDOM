@@ -17,17 +17,17 @@ window.addEventListener('mousemove', function(e) {
   var pos = getCoords(e);
   var x = pos[0], y = pos[1];
   var popup = document.createElement('div');
+
   var s = {
-    width: `250px`,
-    height: `80px`,
+    width: `320px`,
+    height: `320px`,
     backgroundColor: `#fff`,
     border: `1px solid black`,
-    boxShadow: `0px 5px 3px -3px rgba(0,0,0,0.4)`,
     left: 0,
     top: 0,
     borderRadius: `5px`,
     margin: `1em`,
-    ZIndex: 100,
+    ZIndex: 1000,
     position: `fixed`,
     padding: `1em`,
   }
@@ -36,7 +36,6 @@ window.addEventListener('mousemove', function(e) {
   popup.style.height = s.height;
   popup.style.backgroundColor = s.backgroundColor;
   popup.style.border = s.border;
-  //popup.style.boxShadow = s.boxShadow;
   popup.style.left = s.left;
   popup.style.top = s.top;
   popup.style.borderRadius = s.borderRadius;
@@ -44,7 +43,18 @@ window.addEventListener('mousemove', function(e) {
   popup.style.position = s.position;
   popup.style.margin = s.margin;
   popup.style.padding = s.padding;
+  popup.style.opacity = s.opacity;
 
-  popup.innerText = e.path[0].classList.value;
+  var html = `
+    <h4><b>CLASSES : </b></h4>
+    <hr/>
+    <h4>${e.path[0].classList.value}</h4>
+    <br />
+    <h4><b>ENCLOSED TAG :</b></h4>
+    <hr/>
+    <h4>${e.path[0].childNodes[0].nodeName}</h4>
+  `
+
+  popup.innerHTML = html;
   document.body.appendChild(popup);
 });
