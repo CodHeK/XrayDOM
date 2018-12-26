@@ -30,6 +30,7 @@ window.addEventListener('mousemove', function(e) {
     ZIndex: 1000,
     position: `fixed`,
     padding: `1em`,
+    display: `inline-block`,
   }
 
   popup.style.width = s.width;
@@ -44,17 +45,42 @@ window.addEventListener('mousemove', function(e) {
   popup.style.margin = s.margin;
   popup.style.padding = s.padding;
   popup.style.opacity = s.opacity;
+  popup.style.display = s.display;
 
   var html = `
-    <h4><b>CLASSES : </b></h4>
+    <h4 style="font-size: 20px;"><b>CLASSES : </b></h4>
     <hr/>
-    <h4>${e.path[0].classList.value}</h4>
+    <h4 style="font-size: 16px;">${e.path[0].classList.value}</h4>
     <br />
-    <h4><b>ENCLOSED TAG :</b></h4>
+    <h4 style="font-size: 20px;"><b>ENCLOSED TAG :</b></h4>
     <hr/>
-    <h4>${e.path[0].childNodes[0].nodeName}</h4>
+    <h4 style="font-size: 16px;">${e.path[0].childNodes[0].nodeName}</h4>
   `
 
   popup.innerHTML = html;
   document.body.appendChild(popup);
+
+  var classVals = e.path[0].classList.value;
+
+
+  if(classVals != "") {
+    classVals = classVals.split(" ");
+
+    var classString = "";
+
+    for(let i = 0; i < classVals.length; i++) {
+      classString += ("." + classVals[i]);
+    }
+  }
+
+  if(classString != undefined) {
+    var element = document.querySelector(classString);
+    element.style.border = `3px solid red`;
+    element.style.backgroundColor = `rgb(0, 0, 0, 0.1)`;
+    setTimeout(function() {
+      element.style.border = ``;
+      element.style.backgroundColor = ``;
+    }, 1000);
+  }
+
 });
