@@ -1,25 +1,9 @@
-function getCoords(e) {
-    e = e || window.event;
-
-    var pageX = e.pageX;
-    var pageY = e.pageY;
-
-    //IE 8
-    if (pageX === undefined) {
-        pageX = e.clientX + document.body.scrollLeft + document.documentElement.scrollLeft;
-        pageY = e.clientY + document.body.scrollTop + document.documentElement.scrollTop;
-    }
-
-    return [pageX, pageY];
-}
-
 var lastMx = -1, lastMy = -1;
 
 window.addEventListener('mousemove', function(e) {
-  var pos = getCoords(e);
-  var x = pos[0], y = pos[1];
+  var x = e.pageX, y = e.pageY;
 
-  if(Math.abs(x - lastMx) <= 3 && Math.abs(y - lastMy) <= 3) {
+  if(Math.abs(x - lastMx) <= 1 && Math.abs(y - lastMy) <= 1 && e.path[0].classList.value != "" && e.path[0].classList.value != undefined) {
     var popup = document.createElement('div');
 
     var s = {
@@ -73,7 +57,7 @@ window.addEventListener('mousemove', function(e) {
 
     setTimeout(function() {
       document.body.removeChild(popup);
-    }, 1000);
+    }, 500);
 
 
     if(classVals != "") {
@@ -93,7 +77,7 @@ window.addEventListener('mousemove', function(e) {
       setTimeout(function() {
         element.style.border = ``;
         element.style.backgroundColor = ``;
-      }, 2000);
+      }, 500);
     }
   }
   lastMx = x;
