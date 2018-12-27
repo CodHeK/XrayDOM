@@ -3,7 +3,7 @@
   "name": "insta-DOM",
   "version": "1.0",
   "content_scripts": [{
-    "js": ["dom.js"],
+    "js": ["jquery-3.3.1.min.js", "dom.js"],
     "matches": [
       "<all_urls>"
     ]

@@ -1,18 +1,17 @@
-var lastMx = -1, lastMy = -1;
+var lastMx = 0, lastMy = 0, lastEvent, element = null, popup = null;
 
-window.addEventListener('mousemove', function(e) {
-  var x = e.pageX, y = e.pageY;
-
-  if(Math.abs(x - lastMx) <= 1 && Math.abs(y - lastMy) <= 1 && e.path[0].classList.value != "" && e.path[0].classList.value != undefined) {
-    var popup = document.createElement('div');
+function showBox(x, y, e) {
+  if(e != undefined) {
+    popup = document.createElement('div');
+    popup.classList.add('pops');
 
     var s = {
       width: `200px`,
       height: `auto`,
       backgroundColor: `#000`,
       border: `1px solid black`,
-      left: `${x}px`,
-      top: `${y - 20}px`,
+      left: `${x + 20}px`,
+      top: `${y + 20}px`,
       borderRadius: `5px`,
       margin: `1em`,
       ZIndex: 1000,
@@ -40,25 +39,11 @@ window.addEventListener('mousemove', function(e) {
     popup.style.fontWeight = s.fontWeight;
     popup.style.opacity = s.opacity;
 
-    // var html = `
-    //   <h4 style="font-size: 20px;"><b>CLASSES : </b></h4>
-    //   <hr/>
-    //   <h4 style="font-size: 16px;">${e.path[0].classList.value}</h4>
-    //   <br />
-    //   <h4 style="font-size: 20px;"><b>ENCLOSED TAG :</b></h4>
-    //   <hr/>
-    //   <h4 style="font-size: 16px;">${e.path[0].childNodes[0].nodeName}</h4>
-    // `
 
     var classVals = e.path[0].classList.value;
-
+    classFixed = classVals;
     popup.innerText = classVals;
     document.body.appendChild(popup);
-
-    setTimeout(function() {
-      document.body.removeChild(popup);
-    }, 500);
-
 
     if(classVals != "") {
       classVals = classVals.split(" ");
@@ -71,15 +56,44 @@ window.addEventListener('mousemove', function(e) {
     }
 
     if(classString != undefined) {
-      var element = document.querySelector(classString);
+      element = document.querySelector(classString);
       element.style.border = `3px solid red`;
       element.style.backgroundColor = `rgb(0, 0, 0, 0.1)`;
-      setTimeout(function() {
-        element.style.border = ``;
-        element.style.backgroundColor = ``;
-      }, 500);
     }
   }
+}
+
+function init() {
+  this.addEventListener("mousemove", resetTimer, false);
+  this.addEventListener("mousedown", resetTimer, false);
+  this.addEventListener("keypress", resetTimer, false);
+  this.addEventListener("DOMMouseScroll", resetTimer, false);
+  this.addEventListener("mousewheel", resetTimer, false);
+  this.addEventListener("touchmove", resetTimer, false);
+  this.addEventListener("MSPointerMove", resetTimer, false);
+  startTimer();
+}
+
+function resetTimer(e) {
+  window.clearTimeout(timeout);
+  var x = e.pageX, y = e.pageY;
+  lastEvent = e;
   lastMx = x;
   lastMy = y;
-});
+  if(popup != null && element != null && lastEvent != undefined) {
+    $(".pops").remove();
+    element.style.border = ``;
+    element.style.backgroundColor = ``;
+  }
+  startTimer();
+}
+
+function startTimer() {
+    timeout = window.setTimeout(CursorInactive, 400);
+}
+
+function CursorInactive() {
+    showBox(lastMx, lastMy, lastEvent);
+}
+
+init();
