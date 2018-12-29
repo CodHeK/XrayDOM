@@ -42,7 +42,10 @@ function showBox(x, y, e) {
 
     var classVals = e.path[0].classList.value;
     classFixed = classVals;
-    popup.innerText = classVals;
+    if(classVals != "")
+      popup.innerText = classVals;
+    else
+      popup.innerText = e.path[0].nodeName;
     document.body.appendChild(popup);
 
     if(classVals != "") {
