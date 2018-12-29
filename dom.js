@@ -10,8 +10,8 @@ function showBox(x, y, e) {
       height: `auto`,
       backgroundColor: `#000`,
       border: `1px solid black`,
-      left: `${x + 20}px`,
-      top: `${y + 20}px`,
+      left: `${x + 10}px`,
+      top: `${y + 10}px`,
       borderRadius: `5px`,
       margin: `1em`,
       ZIndex: 1000,
@@ -42,10 +42,12 @@ function showBox(x, y, e) {
 
     var classVals = e.path[0].classList.value;
     classFixed = classVals;
-    if(classVals != "")
+    if(classVals != "") {
       popup.innerText = classVals;
-    else
+    }
+    else {
       popup.innerText = e.path[0].nodeName;
+    }
     document.body.appendChild(popup);
 
     if(classVals != "") {
