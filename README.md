@@ -8,7 +8,7 @@ Using this ChromeExtension you view attributes like the `class` to which is belo
 - Download the zip
 - Go to [chrome://extensions/](chrome://extensions/) and check the box for `Developer mode` in the top right.
 - Locate the ZIP file on your computer and unzip it.
-- Go back to the [chrome://extensions/](chrome://extensions/) page and click the `Load unpacked extension` button and select the unzipped folder for your extension to install it.
+- Go back to the [chrome://extensions/](chrome://extensions/) page and click the `Load unpacked extension` button and select the unzipped folder.
 
 
 ### See examples below :
