@@ -1,6 +1,6 @@
 # XrayDOM
 
-X-ray your DOM using just your mouse and never open the console!
+X-ray your DOM using just the cursor and never open the console again!
 Using this ChromeExtension you view attributes like the `class` to which is belongs, `dimensions` of the element, `font` used and the `color` of the text!
 
 ### How to use ? :
