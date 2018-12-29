@@ -1,4 +1,4 @@
-var lastMx = 0, lastMy = 0, lastEvent, element = null, popup = null;
+var lastMx = 0, lastMy = 0, lastEvent, element = null, popup = null, positionInfo, width, height;
 
 function showBox(x, y, e) {
   if(e != undefined) {
@@ -42,13 +42,6 @@ function showBox(x, y, e) {
 
     var classVals = e.path[0].classList.value;
     classFixed = classVals;
-    if(classVals != "") {
-      popup.innerText = classVals;
-    }
-    else {
-      popup.innerText = e.path[0].nodeName;
-    }
-    document.body.appendChild(popup);
 
     if(classVals != "") {
       classVals = classVals.split(" ");
@@ -65,7 +58,27 @@ function showBox(x, y, e) {
       element.style.cursor = `pointer`;
       element.style.border = `3px solid red`;
       element.style.backgroundColor = `rgb(0, 0, 0, 0.1)`;
+      positionInfo = element.getBoundingClientRect();
+      height = positionInfo.height;
+      width = positionInfo.width;
     }
+
+    var value;
+    if(classVals != "" && classVals != undefined) {
+      value = classVals;
+    }
+    else {
+      value = e.path[0].nodeName;
+    }
+
+    var html = `
+      ${value}
+      <hr style="opacity: 0.5;" />
+      ${width} x ${height} px
+    `;
+
+    popup.innerHTML = html;
+    document.body.appendChild(popup);
   }
 }
 
