@@ -1,4 +1,5 @@
-var lastMx = 0, lastMy = 0, lastEvent, element = null, popup = null, positionInfo, width, height;
+var lastMx = 0, lastMy = 0, lastEvent, element = null, popup = null;
+var positionInfo, width, height, font, color, bgColor;
 
 function showBox(x, y, e) {
   if(e != undefined) {
@@ -61,18 +62,32 @@ function showBox(x, y, e) {
       positionInfo = element.getBoundingClientRect();
       height = positionInfo.height;
       width = positionInfo.width;
+      font = css(element, 'font-family');
+      color = css(element, 'color');
+      bgColor = css(element, 'background-color');
     }
 
     var value;
     if(classVals != "" && classVals != undefined) {
-      value = classVals;
+      value = classString;
     }
     else {
       value = e.path[0].nodeName;
+      if(value === "BODY")
+        color = bgColor;
     }
 
     var html = `
       ${value}
+      <br />
+      <table>
+        <tr>
+          <td><div style="width: 10px;height: 10px;background-color: ${color};border: 0;margin-right: 4px;"></div></td>
+          <td>${color}</div>
+        </tr>
+      </table>
+      <hr style="opacity: 0.5;" />
+      ${font}
       <hr style="opacity: 0.5;" />
       ${width} x ${height} px
     `;
@@ -80,6 +95,10 @@ function showBox(x, y, e) {
     popup.innerHTML = html;
     document.body.appendChild(popup);
   }
+}
+
+function css( element, property ) {
+    return window.getComputedStyle( element, null ).getPropertyValue( property );
 }
 
 function init() {
