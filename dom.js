@@ -54,7 +54,7 @@ function showBox(x, y, e) {
     }
 
     if(classString != undefined) {
-      element = document.querySelector(classString);
+      element = document.elementFromPoint(x, y);
       element.style.cursor = `pointer`;
       element.style.border = `3px solid red`;
       element.style.backgroundColor = `rgb(0, 0, 0, 0.1)`;
